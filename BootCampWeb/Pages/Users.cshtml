@@ -1,0 +1,34 @@
+﻿@page
+@model BootCampWeb.Pages.UsersModel
+@{
+}
+<link rel="stylesheet" href="~/css/carTable.css" asp-append-version="true" />
+
+<table class="table-car w-100">
+	<thead style="background-color:pink;">
+		<tr class="text-center">
+			<th>Id</th>
+			<th>MacAddress</th>
+			<th>Age</th>
+			<th>BirthDate</th>
+			<th style="width: 200px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">Email</th>
+			<th>LastName</th>
+			<th>Image</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var user in Model.Users)
+		{
+			<tr>
+				<th>@user.Id</th>
+				<th>@user.MacAddress</th>
+				<th>@user.Age</th>
+				<th>@user.BirthDate</th>
+				<th><p style="width: 200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="@user.Email">@user.Email</p></th>
+				<th>@user.LastName</th>
+				<th><img src="/image/@user.Id/@user.Image.Split("/").Last()" class="img-thumbnail" style="width:50px;" /></th>
+
+			</tr>
+		}
+	</tbody>
+</table>

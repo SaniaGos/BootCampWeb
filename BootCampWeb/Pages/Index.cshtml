@@ -1,0 +1,117 @@
+﻿@page
+@model IndexModel
+@{
+	ViewData["Title"] = "Home page";
+}
+<link rel="stylesheet" href="~/css/carTable.css" asp-append-version="true" />
+
+<div class="text-center">
+	@if (Model.Responce != null)
+	{
+		<text>
+			<div class="@Model.Responce.ResultType.ToString().ToLower()-responce">
+				@Model.Responce.Message
+			</div>
+		</text>
+	}
+
+	<form class="user-form" method="post">
+		@* <div asp-validation-summary="All"></div> *@
+		<div>
+			<div>
+				<label asp-for="Author.Name"></label>
+				<input asp-for="Author.Name" />
+				<span asp-validation-for="Author.Name"></span>
+			</div>
+			<div>
+				<label asp-for="Author.Email"></label>
+				<input asp-for="Author.Email" id="author-email-id" oninput="ChangeEmail(event)" />
+				<span class="loader d-none" id="email-loader"></span>
+				<span class="d-none field-validation-error" id="email-loader-error">This email is used</span>
+				<span asp-validation-for="Author.Email"></span>
+			</div>
+			<div>
+				<label asp-for="Author.Age"></label>
+				<input asp-for="Author.Age" />
+				<span asp-validation-for="Author.Age"></span>
+			</div>
+			<div>
+				<label asp-for="Author.Password"></label>
+				<input asp-for="Author.Password" />
+				<span asp-validation-for="Author.Password"></span>
+			</div>
+			<div>
+				<label asp-for="Author.ConfirmPassword"></label>
+				<input asp-for="Author.ConfirmPassword" />
+				<span asp-validation-for="Author.ConfirmPassword"></span>
+			</div>
+			<div>
+				<input asp-for="Author.Id" />
+			</div>
+			<div>
+				<button type="submit" class="btn btn-primary" disabled>Save user</button>
+			</div>
+
+		</div>
+	</form>
+
+
+</div>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+
+	<script type="text/javascript">
+
+		function ChangeEmail(e) {
+			e.preventDefault();
+
+			if (e.target.value.length > 4 && e.target.checkValidity()) {
+				console.log(e.target.value)
+
+				let token = document.querySelector('input[name="__RequestVerificationToken"]').getAttribute("value");
+				let loader = document.getElementById('email-loader');
+				let messeges = document.getElementById('email-loader-error');
+
+				loader.classList.remove('d-none');
+				messeges.classList.add('d-none');
+			
+				let data = toFormData({
+					'email': e.target.value,
+					'__RequestVerificationToken': token
+				});
+
+				fetch("?handler=CheckEmail", {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+					},
+					body: data
+				}).then((response) => {
+
+					loader.classList.add('d-none');
+					return response.json();
+
+				}).then((data) => {
+
+					if (data) {
+						messeges.classList.remove('d-none');
+					}
+					console.log(data);
+				});
+			}
+		}
+
+		function toFormData(details) {
+			var formBody = [];
+			for (var property in details) {
+				var encodedKey = encodeURIComponent(property);
+				var encodedValue = encodeURIComponent(details[property]);
+				formBody.push(encodedKey + "=" + encodedValue);
+			}
+			formBody = formBody.join("&");
+			return formBody;
+		}
+
+	</script>
+}

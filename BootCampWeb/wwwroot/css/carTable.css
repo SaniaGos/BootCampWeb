@@ -1,0 +1,15 @@
+﻿#car-table-main {
+    display: flex;
+    justify-content: center;
+}
+
+.table-car {
+    background: #32fefeff;
+    width: 66%;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+table tr:nth-child(2n) {
+    background: grey;
+}

@@ -1,0 +1,90 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+.user-form label {
+    min-width: 130px;
+    font-weight: 600;
+    text-align: right;
+}
+
+.user-form input {
+    min-width: 150px;
+    font-weight: 600;
+}
+
+.user-form > div {
+    display: flex;
+    flex-direction: column;
+    column-gap: 10px;
+    row-gap: 5px;
+}
+
+.field-validation-error {
+    color: red;
+}
+
+.success-responce,
+.error-responce {
+    font-weight: bold;
+    font-size: 22px;
+    margin:10px;
+}
+
+.error-responce {
+    color: red;
+}
+
+.success-responce {
+    color: green;
+}
+
+.loader {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-block;
+    border-top: 3px solid #5FFF;
+    border-right: 3px solid transparent;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+    .loader::after {
+        content: '';
+        box-sizing: border-box;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border-left: 3px solid #FF3D90;
+        border-bottom: 3px solid transparent;
+        animation: rotation 0.5s linear infinite reverse;
+    }
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
